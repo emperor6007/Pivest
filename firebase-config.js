@@ -20,8 +20,9 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 // Admin email (change this to your admin email)
-const ADMIN_EMAIL = "admin@piinvestment.com";
+const ADMIN_EMAIL = "lordjuso@gmail.com";
 
 // Platform wallet address will be stored in Firestore
 // This is just a fallback default
-const DEFAULT_PLATFORM_WALLET = "PLATFORM_PI_WALLET_ADDRESS_HERE";
+
+const DEFAULT_PLATFORM_WALLET = "GAZBNWNM27EDQE67WWY2EJH4YLBOQR4V6657AGK7NUZG6T5VGNA4GZG5";
