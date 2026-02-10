@@ -919,3 +919,39 @@ function showMessage(element, message, type) {
     element.className = `message ${type === 'error' ? 'error-message' : 'success-message'}`;
     element.style.display = 'block';
 }
+// ===================================
+// MOBILE MENU FUNCTIONALITY
+// ===================================
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const sidebar = document.getElementById('sidebar');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            sidebar.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+        });
+    }
+    
+    if (mobileOverlay) {
+        mobileOverlay.addEventListener('click', function() {
+            mobileMenuToggle.classList.remove('active');
+            sidebar.classList.remove('active');
+            this.classList.remove('active');
+        });
+    }
+    
+    // Close mobile menu when clicking on nav items
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                mobileMenuToggle.classList.remove('active');
+                sidebar.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+            }
+        });
+    });
+});
