@@ -1,0 +1,326 @@
+/* ===================================
+   ADMIN PANEL SPECIFIC STYLES
+   =================================== */
+
+.admin-nav {
+    background: linear-gradient(135deg, var(--pi-purple-dark), var(--pi-purple));
+    border-bottom-color: var(--pi-purple);
+}
+
+.admin-nav .logo-text,
+.admin-nav .user-info span {
+    color: var(--white);
+}
+
+.admin-badge {
+    background: var(--pi-gold);
+    color: var(--gray-900);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.admin-sidebar {
+    background: linear-gradient(180deg, 
+        rgba(124, 58, 237, 0.02) 0%, 
+        rgba(252, 211, 77, 0.02) 100%);
+}
+
+/* Filter Bar */
+.filter-bar {
+    display: flex;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+}
+
+.filter-btn {
+    padding: var(--spacing-xs) var(--spacing-md);
+    background: var(--gray-100);
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--gray-700);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.filter-btn:hover {
+    background: var(--gray-200);
+}
+
+.filter-btn.active {
+    background: var(--pi-purple);
+    color: var(--white);
+}
+
+/* Data Table */
+.table-container {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table thead {
+    background: var(--gray-50);
+}
+
+.data-table th {
+    padding: var(--spacing-md);
+    text-align: left;
+    font-weight: 600;
+    color: var(--gray-700);
+    border-bottom: 2px solid var(--gray-200);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.data-table tbody tr {
+    border-bottom: 1px solid var(--gray-200);
+    transition: var(--transition-fast);
+}
+
+.data-table tbody tr:hover {
+    background: var(--gray-50);
+}
+
+.data-table td {
+    padding: var(--spacing-md);
+    color: var(--gray-700);
+}
+
+.empty-cell {
+    text-align: center;
+    padding: var(--spacing-xl) !important;
+    color: var(--gray-500);
+}
+
+/* Table Actions */
+.table-actions {
+    display: flex;
+    gap: var(--spacing-xs);
+}
+
+.btn-action {
+    padding: 6px 12px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.btn-approve {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+}
+
+.btn-approve:hover {
+    background: var(--success);
+    color: var(--white);
+}
+
+.btn-reject {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--error);
+}
+
+.btn-reject:hover {
+    background: var(--error);
+    color: var(--white);
+}
+
+.btn-view {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--info);
+}
+
+.btn-view:hover {
+    background: var(--info);
+    color: var(--white);
+}
+
+.btn-action:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Status Badge in Table */
+.table-status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.table-status.pending {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--warning);
+}
+
+.table-status.approved {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+}
+
+.table-status.rejected {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--error);
+}
+
+/* Transaction Hash */
+.tx-hash {
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Wallet Address in Table */
+.wallet-addr {
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* User Info in Table */
+.user-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.user-name {
+    font-weight: 500;
+    color: var(--gray-900);
+}
+
+.user-email {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+}
+
+/* Amount in Table */
+.amount-cell {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    color: var(--pi-purple);
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    max-width: 500px;
+    width: 90%;
+    box-shadow: var(--shadow-2xl);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-content h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    color: var(--gray-900);
+    margin-bottom: var(--spacing-sm);
+}
+
+.modal-content p {
+    color: var(--gray-600);
+    margin-bottom: var(--spacing-lg);
+}
+
+.modal-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: flex-end;
+}
+
+.btn-cancel {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background: var(--gray-100);
+    color: var(--gray-700);
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.btn-cancel:hover {
+    background: var(--gray-200);
+}
+
+.btn-confirm {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background: var(--pi-purple);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.btn-confirm:hover {
+    background: var(--pi-purple-dark);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .table-container {
+        overflow-x: scroll;
+    }
+    
+    .data-table {
+        min-width: 800px;
+    }
+    
+    .filter-bar {
+        overflow-x: auto;
+        padding-bottom: var(--spacing-xs);
+    }
+}
