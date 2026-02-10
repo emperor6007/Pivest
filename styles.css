@@ -725,3 +725,144 @@ a {
     object-fit: cover;
     display: block;
 }
+/* ===================================
+   INVESTMENT PLANS SECTION (Homepage)
+   =================================== */
+.investment-plans-section {
+    padding: var(--spacing-4xl) 0;
+    background: linear-gradient(180deg, 
+        var(--white) 0%, 
+        rgba(124, 58, 237, 0.03) 100%);
+}
+
+.investment-plans-section .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xl);
+    margin-top: var(--spacing-2xl);
+}
+
+.investment-plans-section .plan-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    transition: var(--transition-normal);
+    border: 2px solid var(--gray-200);
+}
+
+.investment-plans-section .plan-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+}
+
+.investment-plans-section .plan-card.popular {
+    border-color: var(--pi-purple);
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1), var(--shadow-md);
+}
+
+.investment-plans-section .plan-badge {
+    position: absolute;
+    top: -15px;
+    right: var(--spacing-md);
+    background: var(--pi-gold);
+    color: var(--gray-900);
+    padding: 6px var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.investment-plans-section .plan-card.popular .plan-badge {
+    background: var(--pi-purple);
+    color: var(--white);
+}
+
+.investment-plans-section .plan-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.investment-plans-section .plan-icon {
+    font-size: 3.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.investment-plans-section .plan-header h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    color: var(--gray-900);
+    margin-bottom: 0;
+}
+
+.investment-plans-section .plan-returns {
+    text-align: center;
+    padding: var(--spacing-lg);
+    background: rgba(124, 58, 237, 0.05);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.investment-plans-section .return-rate {
+    display: block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--pi-purple);
+    line-height: 1;
+}
+
+.investment-plans-section .return-label {
+    display: block;
+    color: var(--gray-600);
+    font-size: 0.875rem;
+    margin-top: var(--spacing-xs);
+}
+
+.investment-plans-section .plan-details {
+    margin-bottom: var(--spacing-xl);
+}
+
+.investment-plans-section .detail-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) 0;
+    color: var(--gray-700);
+    font-size: 0.9375rem;
+}
+
+.investment-plans-section .detail-icon {
+    font-size: 1.25rem;
+}
+
+.investment-plans-section .btn-plan {
+    display: block;
+    width: 100%;
+    padding: var(--spacing-md);
+    background: linear-gradient(135deg, var(--pi-purple), var(--pi-purple-dark));
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    text-decoration: none;
+}
+
+.investment-plans-section .btn-plan:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 1024px) {
+    .investment-plans-section .plans-grid {
+        grid-template-columns: 1fr;
+        max-width: 450px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
