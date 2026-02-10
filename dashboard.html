@@ -18,6 +18,11 @@
                 <span class="logo-text">Pi Investment</span>
             </div>
             <div class="nav-right">
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
                 <div class="user-info">
                     <div class="user-avatar" id="userAvatar">U</div>
                     <span id="userName">User</span>
@@ -29,7 +34,7 @@
 
     <div class="dashboard-layout">
         <!-- Sidebar -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <nav class="sidebar-nav">
                 <a href="#" class="nav-item active" data-page="overview">
                     <span class="nav-icon">📊</span>
@@ -58,6 +63,9 @@
             </nav>
         </aside>
 
+        <!-- Mobile Overlay -->
+        <div class="mobile-overlay" id="mobileOverlay"></div>
+
         <!-- Main Content -->
         <main class="dashboard-main">
             <!-- Overview Page -->
@@ -72,10 +80,10 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <span class="stat-icon">💎</span>
-                            <span class="stat-label">Total Invested</span>
+                            <span class="stat-label">Total Deposited</span>
                         </div>
                         <div class="stat-value" id="totalInvested">0 π</div>
-                        <div class="stat-change positive">+0% this month</div>
+                        <div class="stat-change positive">Approved deposits</div>
                     </div>
 
                     <div class="stat-card">
@@ -103,6 +111,20 @@
                         </div>
                         <div class="stat-value" id="availableBalance">0 π</div>
                         <div class="stat-subtitle">Ready to invest or withdraw</div>
+                    </div>
+                </div>
+
+                <!-- Active Investments -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2>Active Investments</h2>
+                        <a href="#" class="view-all" data-page="invest">View All</a>
+                    </div>
+                    <div id="activeInvestmentsList" class="investments-list">
+                        <div class="empty-state">
+                            <span class="empty-icon">📊</span>
+                            <p>No active investments</p>
+                        </div>
                     </div>
                 </div>
 
@@ -143,7 +165,7 @@
                         </div>
                         <div class="plan-returns">
                             <span class="return-rate">5%</span>
-                            <span class="return-label">Return</span>
+                            <span class="return-label">ROI</span>
                         </div>
                         <div class="plan-details">
                             <div class="detail-item">
@@ -171,7 +193,7 @@
                         </div>
                         <div class="plan-returns">
                             <span class="return-rate">10%</span>
-                            <span class="return-label">Return</span>
+                            <span class="return-label">ROI</span>
                         </div>
                         <div class="plan-details">
                             <div class="detail-item">
@@ -199,7 +221,7 @@
                         </div>
                         <div class="plan-returns">
                             <span class="return-rate">15%</span>
-                            <span class="return-label">Return</span>
+                            <span class="return-label">ROI</span>
                         </div>
                         <div class="plan-details">
                             <div class="detail-item">
@@ -212,23 +234,10 @@
                             </div>
                             <div class="detail-item">
                                 <span class="detail-icon">📊</span>
-                                <span>High Risk</span>
+                                <span>High Returns</span>
                             </div>
                         </div>
                         <button class="btn-invest" data-plan="premium">Invest Now</button>
-                    </div>
-                </div>
-
-                <!-- Active Investments -->
-                <div class="section-card">
-                    <div class="section-header">
-                        <h2>Active Investments</h2>
-                    </div>
-                    <div id="activeInvestmentsList" class="investments-list">
-                        <div class="empty-state">
-                            <span class="empty-icon">📊</span>
-                            <p>No active investments</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -237,31 +246,30 @@
             <div id="depositPage" class="page-content">
                 <div class="page-header">
                     <h1>Deposit Pi</h1>
-                    <p>Send Pi to the platform wallet and submit notification</p>
+                    <p>Send Pi to the platform and notify us for approval</p>
                 </div>
 
                 <div class="two-column-layout">
                     <div class="section-card">
                         <h3>Platform Wallet Address</h3>
                         <div class="wallet-display">
-                            <div class="wallet-address" id="platformWallet">
-                                Loading...
-                            </div>
-                            <button class="btn-copy" id="copyWalletBtn">Copy</button>
+                            <span class="wallet-address" id="platformWallet">Loading...</span>
+                            <button class="btn-copy" onclick="copyWallet()">Copy</button>
                         </div>
+                        
                         <div class="info-box">
-                            <strong>⚠️ Important:</strong>
+                            <strong>📌 Important Instructions:</strong>
                             <ul>
-                                <li>Only send Pi to this address</li>
-                                <li>Double-check the address before sending</li>
-                                <li>Transactions are irreversible</li>
-                                <li>Submit notification after sending</li>
+                                <li>Copy the wallet address above</li>
+                                <li>Open your Pi app and send the desired amount</li>
+                                <li>After sending, come back and fill in the notification form</li>
+                                <li>Wait for admin approval (usually within 24 hours)</li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="section-card">
-                        <h3>Submit Deposit Notification</h3>
+                        <h3>Notify Deposit</h3>
                         <div id="depositMessage" class="message" style="display: none;"></div>
                         <form id="depositForm">
                             <div class="form-group">
@@ -270,10 +278,11 @@
                                     type="number" 
                                     id="depositAmount" 
                                     step="0.01" 
-                                    min="0.01" 
+                                    min="1" 
                                     placeholder="0.00"
                                     required
                                 >
+                                <small class="form-hint">Enter the exact amount you sent</small>
                             </div>
 
                             <div class="form-group">
@@ -284,20 +293,20 @@
                                     placeholder="Enter transaction hash"
                                     required
                                 >
-                                <small class="form-hint">Find this in your Pi wallet transaction history</small>
+                                <small class="form-hint">Find this in your Pi transaction history</small>
                             </div>
 
                             <div class="form-group">
-                                <label for="txDate">Transaction Date</label>
+                                <label for="txDate">Transaction Date & Time</label>
                                 <input 
-                                    type="date" 
+                                    type="datetime-local" 
                                     id="txDate" 
                                     required
                                 >
                             </div>
 
                             <button type="submit" class="btn-submit">
-                                <span class="btn-text">Submit Notification</span>
+                                <span class="btn-text">Notify Admin</span>
                                 <span class="btn-loader" style="display: none;">Submitting...</span>
                             </button>
                         </form>
@@ -309,29 +318,30 @@
             <div id="withdrawPage" class="page-content">
                 <div class="page-header">
                     <h1>Withdraw Pi</h1>
-                    <p>Request withdrawal to your Pi wallet</p>
+                    <p>Request a withdrawal from your available balance</p>
                 </div>
 
                 <div class="two-column-layout">
                     <div class="section-card">
-                        <h3>Available for Withdrawal</h3>
+                        <h3>Available Balance</h3>
                         <div class="balance-display">
                             <div class="balance-amount" id="withdrawableBalance">0 π</div>
-                            <p class="balance-subtitle">Current available balance</p>
+                            <div class="balance-subtitle">Ready to withdraw</div>
                         </div>
+                        
                         <div class="info-box">
-                            <strong>ℹ️ Withdrawal Info:</strong>
+                            <strong>📌 Withdrawal Information:</strong>
                             <ul>
                                 <li>Minimum withdrawal: 1 π</li>
                                 <li>Processing time: 24-48 hours</li>
-                                <li>Admin approval required</li>
-                                <li>No fees applied</li>
+                                <li>Make sure to enter the correct wallet address</li>
+                                <li>Withdrawals are irreversible once processed</li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="section-card">
-                        <h3>Withdrawal Request Form</h3>
+                        <h3>Withdrawal Request</h3>
                         <div id="withdrawMessage" class="message" style="display: none;"></div>
                         <form id="withdrawForm">
                             <div class="form-group">
@@ -462,8 +472,12 @@
                     <strong id="summaryDuration"></strong>
                 </div>
                 <div class="summary-row">
-                    <span>Expected Return:</span>
+                    <span>ROI Rate:</span>
                     <strong id="summaryReturn" class="highlight"></strong>
+                </div>
+                <div class="summary-row">
+                    <span>Expected Profit:</span>
+                    <strong id="summaryProfit" class="highlight"></strong>
                 </div>
                 <div class="summary-row">
                     <span>Total Payout:</span>
