@@ -10,6 +10,7 @@ let currentPlan = null;
 const INVESTMENT_PLANS = {
     starter: {
         name: 'Starter Plan',
+        icon: '🌱',
         minAmount: 100,
         maxAmount: 1000,
         returnRate: 0.05, // 5%
@@ -17,6 +18,7 @@ const INVESTMENT_PLANS = {
     },
     growth: {
         name: 'Growth Plan',
+        icon: '📈',
         minAmount: 1000,
         maxAmount: 5000,
         returnRate: 0.10, // 10%
@@ -24,6 +26,7 @@ const INVESTMENT_PLANS = {
     },
     premium: {
         name: 'Premium Plan',
+        icon: '💎',
         minAmount: 5000,
         maxAmount: 15000,
         returnRate: 0.15, // 15%
@@ -553,6 +556,22 @@ function setupEventListeners() {
         investModalCancel.addEventListener('click', closeInvestModal);
     }
     
+    // Investment modal close button
+    const investModalClose = document.getElementById('investModalClose');
+    if (investModalClose) {
+        investModalClose.addEventListener('click', closeInvestModal);
+    }
+    
+    // Close modal on background click
+    const investModal = document.getElementById('investModal');
+    if (investModal) {
+        investModal.addEventListener('click', function(e) {
+            if (e.target === investModal) {
+                closeInvestModal();
+            }
+        });
+    }
+    
     // Investment amount input - live calculation
     const investAmount = document.getElementById('investAmount');
     if (investAmount) {
@@ -584,7 +603,7 @@ function openInvestModal(plan) {
     const investHint = document.getElementById('investHint');
     const investAmount = document.getElementById('investAmount');
     
-    modalTitle.textContent = `Invest in ${currentPlan.name}`;
+    modalTitle.innerHTML = `<span class="modal-icon">${currentPlan.icon}</span> Invest in ${currentPlan.name}`;
     investHint.textContent = `Min: ${currentPlan.minAmount} π - Max: ${currentPlan.maxAmount} π`;
     investAmount.min = currentPlan.minAmount;
     investAmount.max = currentPlan.maxAmount;
