@@ -2,8 +2,10 @@
 // DASHBOARD.JS - User Dashboard Script with Investment Plans
 // ===================================
 
+const ADMIN_EMAIL = 'lordjuso@gmail.com';
+
 let currentUser = null;
-let platformWallet = DEFAULT_PLATFORM_WALLET;
+let platformWallet = 'MD5HGPHVL73EBDUD2Z4K2VDRLUBC4FFN7GOBLKPK6OPPXH6TED4TQAAAAGMZJCJF363XM';
 let currentPlan = null;
 
 // Investment Plans Configuration
@@ -106,7 +108,7 @@ async function loadPlatformWallet() {
         
         if (settingsDoc.exists) {
             const settings = settingsDoc.data();
-            platformWallet = settings.walletAddress || DEFAULT_PLATFORM_WALLET;
+            platformWallet = settings.walletAddress || 'MD5HGPHVL73EBDUD2Z4K2VDRLUBC4FFN7GOBLKPK6OPPXH6TED4TQAAAAGMZJCJF363XM';
         }
         
         const platformWalletElement = document.getElementById('platformWallet');
