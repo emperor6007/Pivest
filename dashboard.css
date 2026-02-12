@@ -1145,3 +1145,204 @@
     margin-right: var(--spacing-xs);
     vertical-align: middle;
 }
+
+/* ===================================
+   ENHANCED DEPOSIT WALLET STYLING
+   =================================== */
+.deposit-wallet-card {
+    background: linear-gradient(135deg, 
+        rgba(124, 58, 237, 0.03) 0%, 
+        rgba(252, 211, 77, 0.03) 100%);
+    border: 2px solid rgba(124, 58, 237, 0.1);
+}
+
+.wallet-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+.wallet-icon {
+    font-size: 2rem;
+}
+
+.wallet-header h3 {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    color: var(--pi-purple);
+}
+
+.wallet-display-enhanced {
+    background: var(--white);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    border: 2px dashed var(--pi-purple);
+}
+
+.wallet-label {
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.9375rem;
+}
+
+.wallet-address-box {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+    background: var(--gray-50);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--gray-200);
+}
+
+.wallet-address-box .wallet-address {
+    flex: 1;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--pi-purple);
+    word-break: break-all;
+    letter-spacing: 0.5px;
+}
+
+.btn-copy-enhanced {
+    background: linear-gradient(135deg, var(--pi-purple), var(--pi-purple-dark));
+    color: var(--white);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    flex-shrink: 0;
+}
+
+.btn-copy-enhanced:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-copy-enhanced:active {
+    transform: translateY(0);
+}
+
+.copy-icon {
+    font-size: 1.125rem;
+}
+
+.copy-text {
+    font-size: 0.9375rem;
+}
+
+/* Enhanced Withdrawal Balance Display */
+.balance-display {
+    background: linear-gradient(135deg, 
+        var(--pi-purple) 0%, 
+        var(--pi-purple-dark) 100%);
+    padding: var(--spacing-2xl);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.balance-display::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(252, 211, 77, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.balance-display::after {
+    content: '💰';
+    position: absolute;
+    bottom: var(--spacing-md);
+    right: var(--spacing-md);
+    font-size: 4rem;
+    opacity: 0.1;
+}
+
+.balance-amount {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--white);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+.balance-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: var(--spacing-sm);
+    font-size: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Enhanced Form Sections */
+.section-card h3 {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-family: 'Orbitron', sans-serif;
+    color: var(--gray-900);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--gray-700);
+    font-size: 0.9375rem;
+}
+
+.form-group input[type="number"],
+.form-group input[type="text"],
+.form-group input[type="datetime-local"] {
+    font-size: 1rem;
+    padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.form-group input:focus {
+    border-color: var(--pi-purple);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, var(--pi-purple), var(--pi-purple-dark));
+    font-size: 1rem;
+    padding: var(--spacing-md) var(--spacing-xl);
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Responsive enhancements */
+@media (max-width: 768px) {
+    .wallet-address-box {
+        flex-direction: column;
+    }
+    
+    .btn-copy-enhanced {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .balance-amount {
+        font-size: 2rem;
+    }
+}
