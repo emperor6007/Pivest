@@ -111,7 +111,7 @@
                     </div>
                     <div id="recentActivity" class="activity-list">
                         <div class="empty-state">
-                            <span class="empty-icon">📭</span>
+                            <span class="empty-icon">🔭</span>
                             <p>No recent activity</p>
                         </div>
                     </div>
@@ -126,6 +126,7 @@
                 </div>
 
                 <div class="section-card">
+                    <div id="usersMessage" class="message" style="display: none;"></div>
                     <div class="table-container">
                         <table class="data-table" id="usersTable">
                             <thead>
@@ -134,7 +135,7 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Joined Date</th>
-                                    <th>Total Invested</th>
+                                    <th>Available Balance</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -148,7 +149,7 @@
                 </div>
             </div>
 
-            <!-- Deposits Page -->
+            <!-- Deposits, Investments, Withdrawals, Settings pages remain the same -->
             <div id="depositsPage" class="page-content">
                 <div class="page-header">
                     <h1>Deposit Management</h1>
@@ -186,8 +187,6 @@
                 </div>
             </div>
 
-            <!-- Withdrawals Page -->
-            <!-- Investments Page -->
             <div id="investmentsPage" class="page-content">
                 <div class="page-header">
                     <h1>Investment Management</h1>
@@ -225,6 +224,7 @@
                     </div>
                 </div>
             </div>
+
             <div id="withdrawalsPage" class="page-content">
                 <div class="page-header">
                     <h1>Withdrawal Management</h1>
@@ -262,7 +262,6 @@
                 </div>
             </div>
 
-            <!-- Settings Page -->
             <div id="settingsPage" class="page-content">
                 <div class="page-header">
                     <h1>Platform Settings</h1>
@@ -317,6 +316,53 @@
                 <button class="btn-cancel" id="modalCancel">Cancel</button>
                 <button class="btn-confirm" id="modalConfirm">Confirm</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Edit User Balance Modal -->
+    <div id="editBalanceModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="editBalanceModalClose">&times;</button>
+            <h3><span class="modal-icon">💰</span> Edit User Balance</h3>
+            <div id="editBalanceMessage" class="message" style="display: none;"></div>
+            
+            <div class="user-balance-info">
+                <div class="info-row">
+                    <span class="info-label">User:</span>
+                    <strong id="editUserName">-</strong>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Email:</span>
+                    <strong id="editUserEmail">-</strong>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Current Balance:</span>
+                    <strong class="highlight" id="editCurrentBalance">0 π</strong>
+                </div>
+            </div>
+
+            <form id="editBalanceForm">
+                <div class="form-group">
+                    <label for="newBalance">New Available Balance (π)</label>
+                    <input 
+                        type="number" 
+                        id="newBalance" 
+                        step="0.01" 
+                        min="0"
+                        placeholder="Enter new balance"
+                        required
+                    >
+                    <small class="form-hint">This will directly set the user's available balance</small>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" id="editBalanceCancel">Cancel</button>
+                    <button type="submit" class="btn-confirm">
+                        <span class="btn-text">Update Balance</span>
+                        <span class="btn-loader" style="display: none;">Updating...</span>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
