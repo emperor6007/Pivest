@@ -148,16 +148,19 @@ async function loadUsersTable(usersSnapshot) {
             totalInvested += parseFloat(d.data().amount);
         });
         
+        // Get user's available balance
+        const availableBalance = user.availableBalance || 0;
+        
         const row = document.createElement('tr');
         row.innerHTML = `
             <td><code>${userId.substring(0, 8)}...</code></td>
             <td>${user.fullName || 'N/A'}</td>
             <td>${user.email}</td>
             <td>${user.createdAt ? user.createdAt.toDate().toLocaleDateString() : 'N/A'}</td>
-            <td class="amount-cell">${totalInvested.toFixed(2)} π</td>
+            <td class="amount-cell">${availableBalance.toFixed(2)} π</td>
             <td>
                 <div class="table-actions">
-                    <button class="btn-action btn-view" onclick="viewUserDetails('${userId}')">View</button>
+                    <button class="btn-action btn-view" onclick="editUserBalance('${userId}', '${user.fullName}', '${user.email}', ${availableBalance})">Edit Balance</button>
                 </div>
             </td>
         `;
@@ -721,3 +724,118 @@ loadAdminData = async function() {
     await originalLoadAdminData();
     await loadInvestmentsTable();
 };
+// ===================================
+// EDIT USER BALANCE FUNCTIONALITY
+// ===================================
+let currentEditUserId = null;
+
+function editUserBalance(userId, userName, userEmail, currentBalance) {
+    currentEditUserId = userId;
+    
+    const modal = document.getElementById('editBalanceModal');
+    document.getElementById('editUserName').textContent = userName;
+    document.getElementById('editUserEmail').textContent = userEmail;
+    document.getElementById('editCurrentBalance').textContent = `${currentBalance.toFixed(2)} π`;
+    document.getElementById('newBalance').value = currentBalance.toFixed(2);
+    document.getElementById('editBalanceMessage').style.display = 'none';
+    
+    modal.classList.add('active');
+}
+
+function closeEditBalanceModal() {
+    const modal = document.getElementById('editBalanceModal');
+    modal.classList.remove('active');
+    document.getElementById('editBalanceForm').reset();
+    currentEditUserId = null;
+}
+
+// ===================================
+// SETUP EDIT BALANCE EVENT LISTENERS
+// ===================================
+const originalSetupEventListeners = setupEventListeners;
+setupEventListeners = function() {
+    originalSetupEventListeners();
+    
+    // Edit balance form
+    const editBalanceForm = document.getElementById('editBalanceForm');
+    if (editBalanceForm) {
+        editBalanceForm.addEventListener('submit', handleEditBalance);
+    }
+    
+    // Edit balance modal close
+    const editBalanceClose = document.getElementById('editBalanceModalClose');
+    if (editBalanceClose) {
+        editBalanceClose.addEventListener('click', closeEditBalanceModal);
+    }
+    
+    const editBalanceCancel = document.getElementById('editBalanceCancel');
+    if (editBalanceCancel) {
+        editBalanceCancel.addEventListener('click', closeEditBalanceModal);
+    }
+    
+    // Click outside to close edit balance modal
+    const editBalanceModal = document.getElementById('editBalanceModal');
+    if (editBalanceModal) {
+        editBalanceModal.addEventListener('click', function(e) {
+            if (e.target === editBalanceModal) {
+                closeEditBalanceModal();
+            }
+        });
+    }
+};
+
+// ===================================
+// HANDLE EDIT BALANCE SUBMIT
+// ===================================
+async function handleEditBalance(e) {
+    e.preventDefault();
+    
+    if (!currentEditUserId) return;
+    
+    const newBalance = parseFloat(document.getElementById('newBalance').value);
+    const editBalanceMessage = document.getElementById('editBalanceMessage');
+    const submitBtn = e.target.querySelector('.btn-confirm');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const btnLoader = submitBtn.querySelector('.btn-loader');
+    
+    editBalanceMessage.style.display = 'none';
+    
+    if (newBalance < 0) {
+        showMessage(editBalanceMessage, 'Balance cannot be negative', 'error');
+        return;
+    }
+    
+    submitBtn.disabled = true;
+    btnText.style.display = 'none';
+    btnLoader.style.display = 'inline-block';
+    
+    try {
+        await db.collection('users').doc(currentEditUserId).update({
+            availableBalance: newBalance,
+            lastBalanceUpdate: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedBy: currentAdmin.email
+        });
+        
+        showMessage(editBalanceMessage, 'Balance updated successfully!', 'success');
+        
+        // Reload admin data after 1 second
+        setTimeout(() => {
+            closeEditBalanceModal();
+            loadAdminData();
+        }, 1000);
+        
+    } catch (error) {
+        console.error('Error updating balance:', error);
+        showMessage(editBalanceMessage, 'Error updating balance. Please try again.', 'error');
+    } finally {
+        submitBtn.disabled = false;
+        btnText.style.display = 'inline-block';
+        btnLoader.style.display = 'none';
+    }
+}
+
+function showMessage(element, message, type) {
+    element.textContent = message;
+    element.className = `message ${type === 'error' ? 'error-message' : 'success-message'}`;
+    element.style.display = 'block';
+}
