@@ -324,3 +324,42 @@
         padding-bottom: var(--spacing-xs);
     }
 }
+/* User Balance Info in Modal */
+.user-balance-info {
+    background: linear-gradient(135deg, 
+        rgba(124, 58, 237, 0.05) 0%, 
+        rgba(252, 211, 77, 0.05) 100%);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-lg);
+    border: 1px solid rgba(124, 58, 237, 0.1);
+}
+
+.user-balance-info .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm) 0;
+    color: var(--gray-700);
+}
+
+.user-balance-info .info-row:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.user-balance-info .info-label {
+    font-weight: 500;
+    color: var(--gray-600);
+}
+
+.user-balance-info strong {
+    color: var(--gray-900);
+    font-weight: 600;
+}
+
+.user-balance-info .highlight {
+    color: var(--pi-purple);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 700;
+}
