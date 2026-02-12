@@ -666,7 +666,12 @@ async function handleInvestmentSubmit(e) {
     
     // Validation
     if (!currentPlan) {
-        showMessage(investModalMessage, 'Invalid plan selected', 'error');
+        showMessage(investModalMessage, 'Invalid plan selected. Please try again.', 'error');
+        return;
+    }
+    
+    if (!amount || amount <= 0) {
+        showMessage(investModalMessage, 'Please enter a valid investment amount', 'error');
         return;
     }
     
@@ -675,10 +680,13 @@ async function handleInvestmentSubmit(e) {
         return;
     }
     
-    // Check available balance
-    const availableBalance = parseFloat(document.getElementById('investBalance').textContent);
+    // Check available balance from user document (most accurate)
+    const userDoc = await db.collection('users').doc(currentUser.uid).get();
+    const userData = userDoc.data();
+    const availableBalance = userData.availableBalance || 0;
+    
     if (amount > availableBalance) {
-        showMessage(investModalMessage, 'Insufficient available balance', 'error');
+        showMessage(investModalMessage, `Insufficient Balance. You have ${availableBalance.toFixed(2)} π available, but need ${amount.toFixed(2)} π for this investment.`, 'error');
         return;
     }
     
@@ -688,8 +696,7 @@ async function handleInvestmentSubmit(e) {
     btnLoader.style.display = 'inline-block';
     
     try {
-        const userDoc = await db.collection('users').doc(currentUser.uid).get();
-        const userData = userDoc.data();
+        // userData already loaded from validation above
         
         const returns = amount * currentPlan.returnRate;
         const payout = amount + returns;
