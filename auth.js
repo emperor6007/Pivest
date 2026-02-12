@@ -5,12 +5,8 @@
 // Check if user is already logged in
 auth.onAuthStateChanged(user => {
     if (user) {
-        // Check if admin
-        if (user.email === ADMIN_EMAIL) {
-            window.location.href = 'admin.html';
-        } else {
-            window.location.href = 'dashboard.html';
-        }
+        // All users go to dashboard (no admin panel)
+        window.location.href = 'dashboard.html';
     }
 });
 
@@ -75,9 +71,9 @@ if (registerForm) {
                 fullName: fullName,
                 email: email,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                availableBalance: 0,
                 totalInvested: 0,
-                totalWithdrawals: 0,
-                availableBalance: 0
+                totalWithdrawals: 0
             });
             
             showSuccess('Account created successfully! Redirecting...');
@@ -136,15 +132,10 @@ if (loginForm) {
         
         try {
             // Sign in user
-            const userCredential = await auth.signInWithEmailAndPassword(email, password);
-            const user = userCredential.user;
+            await auth.signInWithEmailAndPassword(email, password);
             
-            // Check if admin
-            if (user.email === ADMIN_EMAIL) {
-                window.location.href = 'admin.html';
-            } else {
-                window.location.href = 'dashboard.html';
-            }
+            // All users go to dashboard (no admin check)
+            window.location.href = 'dashboard.html';
             
         } catch (error) {
             console.error('Login error:', error);
