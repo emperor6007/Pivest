@@ -1,7 +1,6 @@
 // ===================================
 // FIREBASE CONFIGURATION
 // ===================================
-// Replace these values with your actual Firebase project credentials
 
 const firebaseConfig = {
   apiKey: "AIzaSyBbcXU4zoe2n0-vhaQLj3w7AoXWxm7q-2s",
@@ -19,10 +18,6 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// Admin email (change this to your admin email)
-const ADMIN_EMAIL = "lordjuso@gmail.com";
-
-// Platform wallet address will be stored in Firestore
-// This is just a fallback default
-
-const DEFAULT_PLATFORM_WALLET = "GAZBNWNM27EDQE67WWY2EJH4YLBOQR4V6657AGK7NUZG6T5VGNA4GZG5";
+// Platform wallet address stored in Firestore (settings/platform)
+// Default wallet if Firestore setting not found
+const DEFAULT_PLATFORM_WALLET = "MD5HGPHVL73EBDUD2Z4K2VDRLUBC4FFN7GOBLKPK6OPPXH6TED4TQAAAAGMZJCJF363XM";
