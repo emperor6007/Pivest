@@ -125,23 +125,13 @@ async function loadPlatformWallet() {
 // ===================================
 async function loadDashboardData() {
     try {
-        // Load deposits
-        const depositsSnapshot = await db.collection('deposits')
-            .where('userId', '==', currentUser.uid)
-            .orderBy('createdAt', 'desc')
-            .get();
+        // Load user document for balance
+        const userDoc = await db.collection('users').doc(currentUser.uid).get();
+        const userData = userDoc.data();
         
-        let totalInvested = 0;
-        let pendingDeposits = 0;
-        
-        depositsSnapshot.forEach(doc => {
-            const deposit = doc.data();
-            if (deposit.status === 'approved') {
-                totalInvested += parseFloat(deposit.amount);
-            } else if (deposit.status === 'pending') {
-                pendingDeposits += parseFloat(deposit.amount);
-            }
-        });
+        const availableBalance = userData.availableBalance || 0;
+        const totalInvested = userData.totalInvested || 0;
+        const totalWithdrawals = userData.totalWithdrawals || 0;
         
         // Load active investments
         const investmentsSnapshot = await db.collection('investments')
@@ -150,14 +140,25 @@ async function loadDashboardData() {
             .get();
         
         let activeInvestmentsTotal = 0;
-        let totalInvestmentAmount = 0;
         
         investmentsSnapshot.forEach(doc => {
             const investment = doc.data();
-            totalInvestmentAmount += parseFloat(investment.amount);
-            
             if (investment.status === 'active') {
                 activeInvestmentsTotal += parseFloat(investment.amount);
+            }
+        });
+        
+        // Load deposits for pending count
+        const depositsSnapshot = await db.collection('deposits')
+            .where('userId', '==', currentUser.uid)
+            .orderBy('createdAt', 'desc')
+            .get();
+        
+        let pendingDeposits = 0;
+        depositsSnapshot.forEach(doc => {
+            const deposit = doc.data();
+            if (deposit.status === 'pending') {
+                pendingDeposits += parseFloat(deposit.amount);
             }
         });
         
@@ -166,18 +167,6 @@ async function loadDashboardData() {
             .where('userId', '==', currentUser.uid)
             .orderBy('createdAt', 'desc')
             .get();
-        
-        let totalWithdrawals = 0;
-        
-        withdrawalsSnapshot.forEach(doc => {
-            const withdrawal = doc.data();
-            if (withdrawal.status === 'approved') {
-                totalWithdrawals += parseFloat(withdrawal.amount);
-            }
-        });
-        
-        // Calculate available balance (approved deposits - active investments - approved withdrawals)
-        const availableBalance = totalInvested - totalInvestmentAmount - totalWithdrawals;
         
         // Update stats
         document.getElementById('totalInvested').textContent = `${totalInvested.toFixed(2)} π`;
