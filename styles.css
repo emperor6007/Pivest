@@ -1,4 +1,9 @@
 /* ===================================
+   GOOGLE FONTS - PI NETWORK TYPOGRAPHY
+   =================================== */
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap');
+
+/* ===================================
    CSS VARIABLES & RESET
    =================================== */
 :root {
@@ -51,9 +56,9 @@
     --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     
     /* Transitions */
-    --transition-fast: 150ms ease;
-    --transition-normal: 300ms ease;
-    --transition-slow: 500ms ease;
+    --transition-fast: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -63,11 +68,13 @@
 }
 
 body {
-    font-family: 'Rubik', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Mulish', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--gray-50);
     color: var(--gray-900);
     line-height: 1.6;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
@@ -115,13 +122,14 @@ a {
 }
 
 .logo-text {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Mulish', sans-serif;
     font-size: 1.25rem;
-    font-weight: 700;
+    font-weight: 800;
     background: linear-gradient(135deg, var(--pi-purple), var(--pi-gold));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    letter-spacing: -0.5px;
 }
 
 .nav-links {
@@ -274,12 +282,13 @@ a {
 }
 
 .hero-title {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Mulish', sans-serif;
     font-size: 3.5rem;
-    font-weight: 900;
+    font-weight: 800;
     line-height: 1.1;
     margin-bottom: var(--spacing-md);
     color: var(--gray-900);
+    letter-spacing: -1px;
 }
 
 .gradient-text {
@@ -347,7 +356,7 @@ a {
 }
 
 .stat-value {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Mulish', sans-serif;
     font-size: 2rem;
     font-weight: 700;
     color: var(--pi-purple);
@@ -422,11 +431,12 @@ a {
 }
 
 .section-header h2 {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Mulish', sans-serif;
     font-size: 2.5rem;
-    font-weight: 700;
+    font-weight: 800;
     color: var(--gray-900);
     margin-bottom: var(--spacing-sm);
+    letter-spacing: -0.5px;
 }
 
 .section-header p {
@@ -460,9 +470,9 @@ a {
 }
 
 .feature-card h3 {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Mulish', sans-serif;
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--gray-900);
     margin-bottom: var(--spacing-sm);
 }
@@ -515,16 +525,16 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Mulish', sans-serif;
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 800;
     margin: 0 auto var(--spacing-md);
 }
 
 .step-content h3 {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Mulish', sans-serif;
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--gray-900);
     margin-bottom: var(--spacing-sm);
 }
@@ -555,10 +565,11 @@ a {
 }
 
 .cta-content h2 {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Mulish', sans-serif;
     font-size: 2.5rem;
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: var(--spacing-sm);
+    letter-spacing: -0.5px;
 }
 
 .cta-content p {
@@ -791,8 +802,9 @@ a {
 }
 
 .investment-plans-section .plan-header h3 {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Mulish', sans-serif;
     font-size: 1.5rem;
+    font-weight: 700;
     color: var(--gray-900);
     margin-bottom: 0;
 }
@@ -807,9 +819,9 @@ a {
 
 .investment-plans-section .return-rate {
     display: block;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Mulish', sans-serif;
     font-size: 3rem;
-    font-weight: 700;
+    font-weight: 800;
     color: var(--pi-purple);
     line-height: 1;
 }
